@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panda Party Tickets</title>
+    <title>Select Your Ticket</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,45 +12,15 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #030712; /* Dark theme inspired by your reference */
+            background-color: #0c0a09; /* Deep stone background */
         }
-
-        .line-art-glow {
-            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5)) drop-shadow(0 0 10px rgba(100, 255, 218, 0.4));
-        }
-
-        .line-art-border {
-            border: 1px solid #4a5568;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .line-art-border:hover {
-            border-color: #6ee7b7;
-            box-shadow: 0 0 15px rgba(110, 231, 183, 0.3);
-        }
-
-        .line-art-btn {
-            background: transparent;
-            color: #6ee7b7;
-            border: 1px solid #6ee7b7;
-            border-radius: 0.375rem;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s ease;
-        }
-
-        .line-art-btn:hover {
-            background: rgba(110, 231, 183, 0.1);
-            box-shadow: 0 0 10px rgba(110, 231, 183, 0.5);
-        }
-
-        /* Message Box Styling to replace alert() */
+        /* Custom styles for the message box */
         .message-box {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a202c;
+            background-color: #1f2937;
             color: white;
             padding: 1rem 2rem;
             border-radius: 0.5rem;
@@ -59,72 +29,120 @@
             display: none;
             transition: opacity 0.3s ease-in-out;
         }
+
+        /* Line art SVG background */
+        .line-art-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-white antialiased flex items-center justify-center min-h-screen p-4">
-    <!-- Message Box -->
-    <div id="message-box" class="message-box"></div>
-
-    <div class="w-full max-w-xl bg-zinc-900 rounded-xl shadow-xl line-art-border p-8 transform transition-all duration-300">
-        <!-- Header section with title and panda icon -->
-        <div class="flex flex-col items-center mb-6">
-            <div class="text-6xl mb-2 text-white line-art-glow" role="img" aria-label="Panda icon">🐼</div>
-            <h1 class="text-4xl font-extrabold text-white mb-1 font-sans">Panda Party Tickets</h1>
-            <p class="text-lg text-zinc-400 font-medium">Get ready to party with pandas!</p>
-        </div>
-
-        <!-- Ticket details section -->
-        <div class="bg-zinc-950 p-6 rounded-xl line-art-border mb-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-zinc-300">Ticket Price</h2>
-                <span id="ticket-price" class="text-3xl font-extrabold text-cyan-400">$25.00</span>
-            </div>
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold text-zinc-300">Quantity</h2>
-                <div class="flex items-center space-x-2">
-                    <button id="decrease-btn" class="line-art-btn p-2 rounded-full text-cyan-400 border-cyan-400 hover:text-white hover:bg-cyan-900 transition-colors duration-200" aria-label="Decrease ticket quantity">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
-                    </button>
-                    <span id="ticket-count" class="text-2xl font-bold text-white w-12 text-center">1</span>
-                    <button id="increase-btn" class="line-art-btn p-2 rounded-full text-cyan-400 border-cyan-400 hover:text-white hover:bg-cyan-900 transition-colors duration-200" aria-label="Increase ticket quantity">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Total price section -->
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-white">Total Price</h2>
-            <span id="total-price" class="text-4xl font-extrabold text-green-400 animate-pulse">$25.00</span>
-        </div>
-
-        <!-- Buy Tickets button -->
-        <button id="buy-tickets-btn" class="w-full bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            Buy Tickets
-        </button>
-
-        <!-- Note about the app's functionality -->
-        <p class="text-center text-sm text-zinc-500 mt-4">
-            This is a demo. In a real app, this would interact with your Flask backend for payment.
-        </p>
+<body class="flex flex-col items-center justify-start min-h-screen p-4 relative">
+    <!-- SVG Line Art Background -->
+    <div class="line-art-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1440 810" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M-112 559C-33.1667 559 133.3 490.667 363.5 352.5C593.7 214.333 874.667 96.5 1198.5 214.5C1522.33 332.5 1746.5 559 1840 559" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="8 8"/>
+            <path d="M-112 250C-33.1667 250 133.3 181.667 363.5 43.5C593.7 -94.6667 874.667 -212.5 1198.5 -94.5C1522.33 23.5 1746.5 250 1840 250" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="8 8"/>
+            <path d="M-112 70C-33.1667 70 133.3 1.66667 363.5 -136.5C593.7 -274.667 874.667 -392.5 1198.5 -274.5C1522.33 -156.5 1746.5 70 1840 70" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="8 8"/>
+        </svg>
     </div>
+
+    <!-- Message Box for user feedback -->
+    <div id="message-box" class="message-box"></div>
+    
+    <header class="text-center my-8 md:my-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white">Choose Your Ticket</h1>
+        <p class="mt-4 text-stone-400 text-lg md:text-xl">Select the ticket that best fits your experience.</p>
+    </header>
+
+    <main class="w-full max-w-7xl px-4 md:px-8 lg:px-12 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8">
+        {% for ticket in tickets %}
+        <!-- Dynamically generated ticket section -->
+        {% set color_class = 'cyan' %}
+        {% set button_gradient = 'from-cyan-600 to-teal-600' %}
+        {% set features = ['Standard access', 'General seating', 'Access to main event areas'] %}
+        {% if 'Platinum' in ticket.name %}
+            {% set color_class = 'purple' %}
+            {% set button_gradient = 'from-purple-600 to-pink-500' %}
+            {% set features = ['Exclusive VIP seating', 'Meet & greet with artists', 'Complimentary food & drinks'] %}
+        {% elif 'VIP' in ticket.name %}
+            {% set color_class = 'amber' %}
+            {% set button_gradient = 'from-amber-500 to-yellow-400' %}
+            {% set features = ['Reserved seating', 'VIP lounge access', 'Complimentary drink ticket'] %}
+        {% endif %}
+
+        <section class="bg-stone-900 p-6 md:p-8 rounded-xl shadow-lg w-full max-w-sm border-2 border-transparent hover:border-{{ color_class }}-500 transition-all duration-300 transform hover:scale-105">
+            <h2 class="text-2xl md:text-3xl font-bold text-{{ color_class }}-400 text-center">{{ ticket.name }}</h2>
+            <p class="text-center mt-2 text-stone-400">{{ ticket.description }}</p>
+            <div class="mt-4 text-center">
+                <span class="text-4xl md:text-5xl font-extrabold text-white">N{{ "{:,}".format(ticket.price) }}</span>
+            </div>
+            
+            <ul class="list-disc list-inside mt-6 text-stone-300 space-y-2">
+                {% for feature in features %}
+                    <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+            
+            <!-- Hidden form for ticket purchase -->
+            <form id="{{ ticket.name.lower() | replace(' ', '-') }}-form" class="mt-8" action="/paystack_init" method="POST">
+                <!-- User info from the user list -->
+                <input type="hidden" name="user_id" value="{{ user[0].id }}">
+                <input type="hidden" name="user_name" value="{{ user[0].name }}">
+                <input type="hidden" name="user_email" value="{{ user[0].email }}">
+                <input type="hidden" name="phone_number" value="{{ user[0].phone_number }}">
+                <input type="hidden" name="address" value="{{ user[0].address }}">
+                
+                <!-- Ticket info -->
+                <input type="hidden" name="ticket_name" value="{{ ticket.name }}">
+                <input type="hidden" name="ticket_price" value="{{ ticket.price }}">
+                <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+
+                <button type="submit" class="w-full py-3 px-4 rounded-md shadow-lg text-lg font-bold text-white bg-gradient-to-r {{ button_gradient }} hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                    Buy Now
+                </button>
+            </form>
+        </section>
+        {% endfor %}
+    </main>
+
+    <!-- User's Purchased Tickets Section -->
+    <section class="w-full max-w-7xl px-4 md:px-8 lg:px-12 mt-12">
+        <h2 class="text-3xl font-bold text-white text-center">Your Tickets</h2>
+        <div class="mt-6 space-y-4">
+            {% if user_tickets %}
+                {% for purchased_ticket in user_tickets %}
+                    {% set purchased_ticket_color_class = 'cyan' %}
+                    {% if 'Platinum' in purchased_ticket.name %}
+                        {% set purchased_ticket_color_class = 'purple' %}
+                    {% elif 'VIP' in purchased_ticket.name %}
+                        {% set purchased_ticket_color_class = 'amber' %}
+                    {% endif %}
+                    <div class="bg-stone-800 p-4 rounded-lg shadow flex justify-between items-center">
+                        <div>
+                            <p class="text-xl font-semibold text-{{ purchased_ticket_color_class }}-400">{{ purchased_ticket.name }}</p>
+                            <p class="text-sm text-stone-400">{{ purchased_ticket.description }}</p>
+                            <p class="text-xs text-stone-500 mt-1">Code: <span class="font-mono text-stone-300">{{ purchased_ticket.unique_code }}</span></p>
+                            <p class="text-xs text-stone-500">Status: <span class="font-medium text-{{ 'green' if purchased_ticket.status.lower() == 'unredeemed' else 'red' }}-400">{{ purchased_ticket.status | capitalize }}</span></p>
+                        </div>
+                        <span class="text-lg font-bold text-{{ purchased_ticket_color_class }}-400">N{{ "{:,}".format(purchased_ticket.price) }}</span>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center text-stone-500">You have not purchased any tickets yet.</p>
+            {% endif %}
+        </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // State variables
-            let ticketCount = 1;
-            const ticketPrice = 25.00;
-
-            // DOM elements
-            const ticketCountElement = document.getElementById('ticket-count');
-            const totalPriceElement = document.getElementById('total-price');
-            const decreaseBtn = document.getElementById('decrease-btn');
-            const increaseBtn = document.getElementById('increase-btn');
-            const buyBtn = document.getElementById('buy-tickets-btn');
             const messageBox = document.getElementById('message-box');
 
-            // Function to show a temporary message box
             function showMessage(message, duration = 3000) {
                 messageBox.textContent = message;
                 messageBox.style.display = 'block';
@@ -137,36 +155,39 @@
                 }, duration);
             }
 
-            // Function to update the total price and display
-            function updateDisplay() {
-                const totalPrice = ticketCount * ticketPrice;
-                ticketCountElement.textContent = ticketCount;
-                totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-            }
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const ticketName = form.querySelector('input[name="ticket_name"]').value;
+                    const ticketPrice = form.querySelector('input[name="ticket_price"]').value;
 
-            // Event listener for the decrease button
-            decreaseBtn.addEventListener('click', () => {
-                if (ticketCount > 1) {
-                    ticketCount--;
-                    updateDisplay();
-                }
-            });
+                    showMessage(`Preparing to purchase a ${ticketName} ticket for N${ticketPrice}...`);
+                    
+                    try {
+                        const formData = new FormData(form);
+                        
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData // Send as FormData, browser will set Content-Type
+                        });
 
-            // Event listener for the increase button
-            increaseBtn.addEventListener('click', () => {
-                ticketCount++;
-                updateDisplay();
+                        // Check if the response is a redirect (Paystack success)
+                        if (response.redirected) {
+                            showMessage('Payment initiated successfully! Redirecting to Paystack...');
+                            window.location.href = response.url; // Follow the redirect
+                        } else {
+                            // If not a redirect, it's likely an error, so parse as JSON
+                            const result = await response.json(); 
+                            // Assuming backend error format is {"error": "message"} or {"message": "error"}
+                            showMessage(result.error || result.message || 'Payment initiation failed. Please try again.');
+                        }
+                    } catch (error) {
+                        showMessage('An error occurred while processing your request: ' + error.message);
+                    }
+                });
             });
-
-            // Event listener for the "Buy Tickets" button
-            buyBtn.addEventListener('click', () => {
-                // In a real application, this is where you would make an API call to your Flask backend
-                // For this demo, we'll just show a message.
-                showMessage(`You have purchased ${ticketCount} ticket(s) for a total of $${(ticketCount * ticketPrice).toFixed(2)}. Enjoy the Panda Party!`);
-            });
-            
-            // Initial display update
-            updateDisplay();
         });
     </script>
 </body>

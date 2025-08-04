@@ -211,16 +211,17 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, password })
                     });
+                    
+                    const result = await response.json();
 
-                    if (response.ok) {
-                        // The backend now returns a JSON object with a URL
-                        const result = await response.json();
-                        showMessage(result.response || 'Login successful! Redirecting...');
+                    // Check for the specific "successful" message in the response
+                    if (result && result.response === 'successful') {
+                        showMessage('Login successful! Redirecting...');
                         proceedLink.href = result.url;
                         loginBtn.classList.add('hidden');
                         proceedContainer.classList.remove('hidden');
                     } else {
-                        const result = await response.json();
+                        // Display the error message from the backend
                         showMessage(result.response || 'Login failed. Please check your credentials.');
                     }
                 } catch (error) {
