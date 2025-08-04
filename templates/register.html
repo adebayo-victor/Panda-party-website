@@ -75,6 +75,10 @@
                 <label for="signup-password" class="block text-sm font-medium text-stone-400">Password</label>
                 <input type="password" id="signup-password" name="password" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
             </div>
+            <div>
+                <label for="signup-phone" class="block text-sm font-medium text-stone-400">Whatsapp no.</label>
+                <input type="password" id="signup-phone" name="password" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
+            </div>
             <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-lg font-bold text-white bg-gradient-to-r from-violet-600 to-amber-600 hover:from-violet-700 hover:to-amber-700 transition-all duration-300 transform hover:scale-105">
                 Sign up
             </button>
@@ -169,7 +173,7 @@
                 const name = e.target.name.value;
                 const email = e.target.email.value;
                 const password = e.target.password.value;
-
+                const phone = e.target.phone.value;
                 // This is where you would make your HTTP request to the Flask backend.
                 // Example of a fetch request:
                 /*
