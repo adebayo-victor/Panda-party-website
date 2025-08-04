@@ -3,7 +3,7 @@ from cs50 import SQL
 
 # Establish a connection to the database.
 # This will create a file named "your_database_name.db" if it does not already exist.
-db = SQL("sqlite:///your_database_name.db")
+db = SQL("sqlite:///party.db")
 
 # ----------------------------------------------------------------------
 # DATABASE SETUP: Create tables and insert dummy data
