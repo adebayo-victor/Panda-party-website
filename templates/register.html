@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a09; /* Deep stone background */
+        }
+        /* Custom styles for the message box */
+        .message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        /* Style for gold-themed focus rings */
+        .input-focus-gold:focus {
+            outline: none;
+            border-color: #d97706; /* Amber-600 */
+            box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.5);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <!-- Message Box to show feedback to the user -->
+    <div id="message-box" class="message-box"></div>
+
+    <div class="bg-stone-900 p-8 rounded-xl shadow-lg w-full max-w-md border border-stone-800">
+        <div class="text-center mb-6">
+            <h1 id="form-title" class="text-3xl font-bold text-white">Login</h1>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-4">
+            <div>
+                <label for="login-email" class="block text-sm font-medium text-stone-400">Email</label>
+                <input type="email" id="login-email" name="email" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
+            </div>
+            <div>
+                <label for="login-password" class="block text-sm font-medium text-stone-400">Password</label>
+                <input type="password" id="login-password" name="password" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
+            </div>
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-lg font-bold text-white bg-gradient-to-r from-violet-600 to-amber-600 hover:from-violet-700 hover:to-amber-700 transition-all duration-300 transform hover:scale-105">
+                Login
+            </button>
+        </form>
+
+        <!-- Signup Form (hidden by default) -->
+        <form id="signup-form" class="space-y-4 hidden">
+            <div>
+                <label for="signup-name" class="block text-sm font-medium text-stone-400">Full Name</label>
+                <input type="text" id="signup-name" name="name" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
+            </div>
+            <div>
+                <label for="signup-email" class="block text-sm font-medium text-stone-400">Email</label>
+                <input type="email" id="signup-email" name="email" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
+            </div>
+            <div>
+                <label for="signup-password" class="block text-sm font-medium text-stone-400">Password</label>
+                <input type="password" id="signup-password" name="password" required class="mt-1 block w-full px-3 py-2 bg-stone-800 text-white border border-stone-700 rounded-md shadow-sm input-focus-gold">
+            </div>
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-lg font-bold text-white bg-gradient-to-r from-violet-600 to-amber-600 hover:from-violet-700 hover:to-amber-700 transition-all duration-300 transform hover:scale-105">
+                Sign up
+            </button>
+        </form>
+
+        <!-- Form switch link -->
+        <div class="mt-6 text-center">
+            <p id="switch-form-text" class="text-sm text-stone-500">
+                Don't have an account? <a href="#" id="switch-link" class="font-medium text-amber-400 hover:text-amber-300">Sign up here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM elements
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const switchLink = document.getElementById('switch-link');
+            const formTitle = document.getElementById('form-title');
+            const switchFormText = document.getElementById('switch-form-text');
+            const messageBox = document.getElementById('message-box');
+
+            // Function to show a temporary message box
+            function showMessage(message, duration = 3000) {
+                messageBox.textContent = message;
+                messageBox.style.display = 'block';
+                messageBox.style.opacity = '1';
+                setTimeout(() => {
+                    messageBox.style.opacity = '0';
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                    }, 300); // Wait for fade-out transition
+                }, duration);
+            }
+
+            // Function to switch between login and signup forms
+            function toggleForms() {
+                if (loginForm.classList.contains('hidden')) {
+                    loginForm.classList.remove('hidden');
+                    signupForm.classList.add('hidden');
+                    formTitle.textContent = 'Login';
+                    switchFormText.innerHTML = `Don't have an account? <a href="#" id="switch-link" class="font-medium text-amber-400 hover:text-amber-300">Sign up here</a>`;
+                } else {
+                    loginForm.classList.add('hidden');
+                    signupForm.classList.remove('hidden');
+                    formTitle.textContent = 'Sign up';
+                    switchFormText.innerHTML = `Already have an account? <a href="#" id="switch-link" class="font-medium text-amber-400 hover:text-amber-300">Login here</a>`;
+                }
+            }
+
+            // Event listener for the form switch link
+            document.addEventListener('click', (event) => {
+                if (event.target && event.target.id === 'switch-link') {
+                    event.preventDefault();
+                    toggleForms();
+                }
+            });
+
+            // Event listener for the login form submission
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = e.target.email.value;
+                const password = e.target.password.value;
+
+                // This is where you would make your HTTP request to the Flask backend.
+                // Example of a fetch request:
+                /*
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const result = await response.json();
+                    if (response.ok) {
+                        showMessage('Login successful! Redirecting...');
+                        // Handle successful login, e.g., store token and redirect
+                    } else {
+                        showMessage(result.message || 'Login failed. Please check your credentials.');
+                    }
+                } catch (error) {
+                    showMessage('An error occurred. Please try again.');
+                }
+                */
+               showMessage(`Login request sent for ${email}. (This is a demo)`);
+            });
+
+            // Event listener for the signup form submission
+            signupForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = e.target.name.value;
+                const email = e.target.email.value;
+                const password = e.target.password.value;
+
+                // This is where you would make your HTTP request to the Flask backend.
+                // Example of a fetch request:
+                /*
+                try {
+                    const response = await fetch('/api/signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, password })
+                    });
+                    const result = await response.json();
+                    if (response.ok) {
+                        showMessage('Signup successful! Please login.');
+                        // Toggle back to login form
+                        toggleForms();
+                    } else {
+                        showMessage(result.message || 'Signup failed. Please try again.');
+                    }
+                } catch (error) {
+                    showMessage('An error occurred. Please try again.');
+                }
+                */
+               showMessage(`Signup request sent for ${name} (${email}). (This is a demo)`);
+            });
+        });
+    </script>
+</body>
+</html>
