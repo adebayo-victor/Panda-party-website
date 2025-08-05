@@ -107,7 +107,7 @@ def post_session():
             "email": email,
             "amount": float(price) * 100,
             "metadata": metadata,
-            "callback_url": "https://panda-party-website.onrender.comcallback"  # 🔁 Paystack will redirect here
+            "callback_url": "https://panda-party-website.onrender.com/callback"  # 🔁 Paystack will redirect here
         }
 
         response = requests.post(PAYSTACK_INITIALIZE_URL, json=payload, headers=headers)

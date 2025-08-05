@@ -141,7 +141,7 @@
             async function validateCode(code) {
                 showMessage('Validating code...', 2000); // Show loading message
                 try {
-                    const response = await fetch('https://panda-party-website.onrender.comvalidation', {
+                    const response = await fetch('https://panda-party-website.onrender.com/validation', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ code: code })
