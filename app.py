@@ -31,6 +31,9 @@ def generate_six_digit_code():
 code = generate_six_digit_code()
 print(f"Generated 6-digit code: {code}")
 @app.route("/login", methods=['POST'])
+@app.route("/")
+def index():
+    return render_template("index.html")
 def login():
     try:
         if request.method == "POST":
