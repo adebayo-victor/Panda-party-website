@@ -30,10 +30,11 @@ def generate_six_digit_code():
 # Example usage:
 code = generate_six_digit_code()
 print(f"Generated 6-digit code: {code}")
-@app.route("/login", methods=['POST'])
+
 @app.route("/")
 def index():
     return render_template("index.html")
+@app.route("/login",methods=["POST"])
 def login():
     try:
         if request.method == "POST":
@@ -49,6 +50,7 @@ def login():
             else:
                 return {'response':"Not an existing client"}
     except Exception as e:
+        print(e)
         return{'response':f"{e}"}
 @app.route("/signup",methods=["POST"])
 def signup():
@@ -107,7 +109,7 @@ def post_session():
             "email": email,
             "amount": float(price) * 100,
             "metadata": metadata,
-            "callback_url": "https://panda-party-website.onrender.com/callback"  # 🔁 Paystack will redirect here
+            "callback_url": "https://hhxsq4xb-5000.uks1.devtunnels.ms/callback"  # 🔁 Paystack will redirect here
         }
 
         response = requests.post(PAYSTACK_INITIALIZE_URL, json=payload, headers=headers)
