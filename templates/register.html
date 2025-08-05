@@ -226,6 +226,7 @@
                     }
                 } catch (error) {
                     showMessage('An error occurred. Please try again.');
+                    console.log(error)
                 } finally {
                     setLoading(loginBtn, loginBtnText, loginSpinner, false);
                 }
