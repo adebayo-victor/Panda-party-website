@@ -155,39 +155,7 @@
                 }, duration);
             }
 
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    
-                    const ticketName = form.querySelector('input[name="ticket_name"]').value;
-                    const ticketPrice = form.querySelector('input[name="ticket_price"]').value;
-
-                    showMessage(`Preparing to purchase a ${ticketName} ticket for N${ticketPrice}...`);
-                    
-                    try {
-                        const formData = new FormData(form);
-                        
-                        const response = await fetch(form.action, {
-                            method: 'POST',
-                            body: formData // Send as FormData, browser will set Content-Type
-                        });
-
-                        // Check if the response is a redirect (Paystack success)
-                        if (response.redirected) {
-                            showMessage('Payment initiated successfully! Redirecting to Paystack...');
-                            window.location.href = response.url; // Follow the redirect
-                        } else {
-                            // If not a redirect, it's likely an error, so parse as JSON
-                            const result = await response.json(); 
-                            // Assuming backend error format is {"error": "message"} or {"message": "error"}
-                            showMessage(result.error || result.message || 'Payment initiation failed. Please try again.');
-                        }
-                    } catch (error) {
-                        showMessage('An error occurred while processing your request: ' + error.message);
-                    }
-                });
-            });
+            
         });
     </script>
 </body>
