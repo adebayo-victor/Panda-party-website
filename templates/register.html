@@ -215,9 +215,9 @@
                     const result = await response.json();
 
                     // Check for the specific "successful" message in the response
-                    if (result && result.response === 'successful') {
+                    if (result && result[0].response === 'successful') {
                         showMessage('Login successful! Redirecting...');
-                        proceedLink.href = result.url;
+                        proceedLink.href = result[0].url;
                         loginBtn.classList.add('hidden');
                         proceedContainer.classList.remove('hidden');
                     } else {

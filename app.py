@@ -43,9 +43,9 @@ def login():
             #validation with the db is done here
             valid = db.execute("SELECT * FROM clients WHERE email=? AND password_hash=?",email, password)
             if valid:
-                reply = {"response":"successful", "url":"tickets_moi/" + f"{valid[0]['id']}"}
+                reply = [{"response":"successful", "url":"tickets_moi/" + f"{valid[0]['id']}"}]
                 print(reply)
-                return reply
+                return jsonify(reply)
             else:
                 return {'response':"Not an existing client"}
     except Exception as e:
